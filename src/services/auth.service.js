@@ -11,6 +11,7 @@ exports.createUser = async (reqBody) => {
     try {
         let user = User(reqBody)
         const hashedpassword = reqBody.password ? await bcrypt.hash(reqBody.password, 5) : '';
+
         if (reqBody.mobile && await User.findOne({ mobile: reqBody.mobile })) {
             return {
                 statusCode: 400,
@@ -18,6 +19,7 @@ exports.createUser = async (reqBody) => {
                 message: CONSTANT_MSG.EMAIL.MOBILENO_EXISTING
             };
         }
+
         if (reqBody.email != null && await User.findOne({ email: reqBody.email })) {
             return {
                 statusCode: 400,
@@ -166,7 +168,6 @@ exports.socialLogin = async (reqBody) => {
 // Forgot Password
 exports.forgotPassword = async (reqBody) => {
     try {
-        // let emailORmobile = reqBody.username.split("@")
         let user = await User.findOne({ $or: [{ mobile: reqBody.username }, { email: reqBody.username }] })
         if (!user) {
             return {
@@ -222,23 +223,7 @@ exports.changePassword = async (reqBody) => {
         Object.assign(user, additionalSellerDetails);
         await user.save();
         user = user.userRole.includes("SELLER") ? await User.findOne({ _id: user.id }, { mobile: 1, email: 1, name: 1, userRole: 1, isVerified: 1, isApproved: 1, isDocVerified: 1, isSocialLogin: 1, id: 1, userStatus: 1 }) : await Buyer.findOne({ _id: user.id }, { mobile: 1, email: 1, name: 1, userRole: 1, isVerified: 1, isSocialLogin: 1, _id: 1 })
-        
-        if (user.mobile != null) {
-            const mobileNumber = user.mobile
-            const password = reqBody.password
-            const sellerName = user.name
-            // await constants.sendSMS('RESET_OTP', { mobileNumber, password, sellerName });
-        }
-        let deliveryPincode = await Address.findOne({ buyerId: user._id.toString(), isDefaultAddress: true }).sort({ createdAt: -1 })
-        if (deliveryPincode) {
-            user.pincode = deliveryPincode.pincode
-        }
-        else {
-            deliveryPincode = await Address.findOne({ buyerId: user._id.toString() }).sort({ createdAt: -1 })
-            if (deliveryPincode) {
-                user.pincode = deliveryPincode.pincode
-            }
-        }
+
         return {
             statusCode: 200,
             status: CONSTANT_MSG.STATUS.SUCCESS,
@@ -277,13 +262,7 @@ exports.newPasswordByOldPassword = async (reqBody) => {
         }
         Object.assign(user, additionalSellerDetails);
         await user.save();
-       
-        if (user.mobile != null) {
-            const mobileNumber = user.mobile
-            const password = reqBody.password
-            const sellerName = user.name
-            // await constants.sendSMS('RESET_OTP', { mobileNumber, password, sellerName });
-        }
+
         return {
             statusCode: 200,
             status: CONSTANT_MSG.STATUS.SUCCESS,
@@ -339,12 +318,7 @@ exports.refreshToken = async (refreshToken) => {
             }
         }
         const userTokenDetails = userTokenDetailsArray[0];
-        let token;
-        if (refreshToken.isMobileApp) {
-            token = jwt.sign({ email: userTokenDetails.email, userRole: userTokenDetails.userRole, mobile: userTokenDetails.mobile, userId: userTokenDetails._id }, process.env.JWT_TOKEN_SECRET_KEY, { expiresIn: "90d" })
-        } else {
-            token = jwt.sign({ email: userTokenDetails.email, userRole: userTokenDetails.userRole, mobile: userTokenDetails.mobile, userId: userTokenDetails._id }, process.env.JWT_TOKEN_SECRET_KEY, { expiresIn: "12h" })
-        }
+        const token = jwt.sign({ email: userTokenDetails.email, userRole: userTokenDetails.userRole, mobile: userTokenDetails.mobile, userId: userTokenDetails._id }, process.env.JWT_TOKEN_SECRET_KEY, { expiresIn: "12h" })
         await Token.updateOne({ "_id": userTokenDetails.tokenDetails._id.toString() }, { token: token });
         return {
             statusCode: 200,

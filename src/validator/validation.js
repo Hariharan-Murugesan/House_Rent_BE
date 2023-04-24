@@ -7,7 +7,7 @@ module.exports.signUpSchema = joi.object({
     mobile: joi.string().min(10),
     password: joi.string().min(6).max(30).required(),
     confirmPassword: joi.string().min(6).max(30).required(),
-    userRole: joi.string().required().valid('OWNER', 'TENANT').required(),    
+    userRole: joi.string().required().valid('OWNER', 'TENANT').required(),
 });
 
 module.exports.signInSchema = joi.object({
@@ -27,7 +27,7 @@ module.exports.socialLogin = joi.object({
     mobile: joi.string().min(10),
     email: joi.string().max(75),
     name: joi.string().required(),
-    userRole: joi.string().valid('OWNER', 'TENANT')    
+    userRole: joi.string().valid('OWNER', 'TENANT')
 });
 
 module.exports.refreshToken = joi.object({
@@ -66,4 +66,51 @@ module.exports.changeEmail = joi.object({
     oldEmail: joi.string().required(),
     email: joi.string().invalid(joi.ref('oldEmail')).required(),
     confirmEmail: joi.string().valid(joi.ref('email')).required()
+});
+
+module.exports.addHouse = joi.object({
+    userId: joiObjectId().required(),
+    houseName: joi.string().required(),
+    price: joi.number().required(),
+    space: joi.string().required(),
+    address1: joi.string().min(3).required(),
+    address2: joi.string().min(3).required(),
+    district: joi.string().required(),
+    state: joi.string().required(),
+    country: joi.string().required(),
+    pincode: joi.string().max(6).required(),
+    state: joi.string().required(),
+    latitude: joi.string().required(),
+    longitude: joi.string().required()
+});
+
+module.exports.updateHouse = joi.object({
+    houseId: joiObjectId().required(),
+    userId: joiObjectId().required(),
+    houseName: joi.string().required(),
+    price: joi.number().required(),
+    space: joi.string().required(),
+    address1: joi.string().min(3).required(),
+    address2: joi.string().min(3).required(),
+    district: joi.string().required(),
+    state: joi.string().required(),
+    country: joi.string().required(),
+    pincode: joi.string().max(6).required(),
+    state: joi.string().required(),
+    latitude: joi.string().required(),
+    longitude: joi.string().required()
+});
+
+module.exports.deleteHouseById = joi.object({
+    houseId: joiObjectId().required()
+});
+
+module.exports.getAllHouse = joi.object({
+    userId: joiObjectId().required(),
+    limit: joi.number().min(1).required(),
+    page: joi.number().min(1).required(),
+});
+
+module.exports.getHouseById = joi.object({
+    houseId: joiObjectId().required(),
 });

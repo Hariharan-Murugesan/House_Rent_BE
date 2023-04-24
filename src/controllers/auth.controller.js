@@ -1,4 +1,4 @@
-const { authService } = require('../service');
+const { authService } = require('../services');
 const { signInSchema, signUpSchema, signOutSchema, forgotPassword, changePassword, newPasswordByOldPassword, otpverify, resendOtp,
     socialLogin, refreshToken, botRegister, becameCurator, becameSeller, checkEmail, changeEmail } = require('../validator/validation')
 const Authentication = require("../middleware/authentication");

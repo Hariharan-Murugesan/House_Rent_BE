@@ -308,8 +308,242 @@ paths:
         "400":
           description: Bad Request Error
         "401":
+          description: Unauthorized Error 
+
+  /user/becameTenant:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "AUTHENDICATION"
+      description: ""
+      operationId: becameTenant      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string           
+              required:   
+                - userId  
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /house/addHouse:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "HOUSE"
+      description: ""
+      operationId: addHouse      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string 
+                houseName:
+                  type: string           
+                price:
+                  type: string 
+                space:
+                  type: string           
+                address1:
+                  type: string 
+                address2:
+                  type: string           
+                district:
+                  type: string 
+                state:
+                  type: string           
+                country:
+                  type: string 
+                pincode:
+                  type: string           
+                latitude:
+                  type: string 
+                longitude:
+                  type: string           
+              required:   
+                - userId  
+                - houseName 
+                - price 
+                - space  
+                - address1 
+                - address2 
+                - district  
+                - state 
+                - country 
+                - pincode  
+                - latitude 
+                - longitude 
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /house/updateHouse:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "HOUSE"
+      description: ""
+      operationId: updateHouse      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string 
+                houseId:
+                  type: string 
+                houseName:
+                  type: string           
+                price:
+                  type: string 
+                space:
+                  type: string           
+                address1:
+                  type: string 
+                address2:
+                  type: string           
+                district:
+                  type: string 
+                state:
+                  type: string           
+                country:
+                  type: string 
+                pincode:
+                  type: string           
+                latitude:
+                  type: string 
+                longitude:
+                  type: string           
+              required:   
+                - userId  
+                - houseName 
+                - price 
+                - space  
+                - address1 
+                - address2 
+                - district  
+                - state 
+                - country 
+                - pincode  
+                - latitude 
+                - longitude 
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+     
+  /house/getAllHouse:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "HOUSE"
+      description: ""
+      operationId: getAllHouse      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page:
+                  type: number 
+                limit:
+                  type: number           
+              required:   
+                - limit  
+                - page  
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /house/getHouseById: 
+    parameters:
+        - name: houseId
+          in: query
+          type: string
+          required: true 
+    get: 
+      security:
+        - bearerAuth: []     
+      tags:
+       - "HOUSE"
+      operationId: getHouseById   
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
           description: Unauthorized Error   
 
+  /house/deleteHouseById: 
+    parameters:
+        - name: houseId
+          in: query
+          type: string
+          required: true 
+    delete: 
+      security:
+        - bearerAuth: []     
+      tags:
+       - "HOUSE"
+      operationId: deleteHouseById   
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error   
+
+  /admin/getOwnerList:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "ADMIN"
+      operationId: getOwnerList
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
 components:
   responses:
     UnauthorizedError:

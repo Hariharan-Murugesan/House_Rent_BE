@@ -93,6 +93,18 @@ module.exports.CONSTANT_MSG = {
         RATING_FETCH_SUCCESSFULLY: "Rating fetch successfully",
         RATING_ALEADY_ADDED: "Rating already added"
     },
+    HOUSE: {
+        HOUSE_ADDED_SUCCESSFULLY: "House added successfully",
+        HOUSE_UPDATED_SUCCESSFULLY: "House updated successfully",
+        HOUSE_DELETED_SUCCESSFULLY: "House deleted successfully",
+        HOUSE_NOT_FOUND: "House not found",
+        HOUSE_FETCH_SUCCESSFULLY: "House fetch successfully",
+        HOUSE_ALEADY_ADDED: "House already added"
+    },
+    OWNER: {
+        OWNER_FETCH_SUCCESSFULLY: "Owner fetch successfully",
+        HOUSE_ALEADY_ADDED: "House already added"
+    },
 
     FAVORITE: {
         PRODUCT_ADDED_INTO_FAVORITES: "Product successfully added into favorites",

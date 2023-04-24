@@ -32,7 +32,7 @@ const houseSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true
-    },    
+    },
     pincode: {
         type: String,
         required: true
@@ -45,13 +45,16 @@ const houseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ownerId: {
+    userId: {
         type: String,
         required: true
+    },
+    isDeleted: {
+        type: Boolean,
     }
 },
-{
-    timestamps: true,
-});
+    {
+        timestamps: true,
+    });
 
 module.exports = mongoose.model('House', houseSchema, 'House')
