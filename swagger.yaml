@@ -1,0 +1,316 @@
+openapi: 3.0.0
+
+info:
+  title: HouseRent
+
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    
+
+# security:
+#   - bearerAuth: []
+# summary: Submit email address and password to login
+servers:
+  - url: http://localhost:3000/
+    description: Local server
+
+paths:               
+  /user/register:
+    post:      
+      tags:
+       - "AUTHENDICATION"
+      description: ""
+      operationId: register      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Jack"
+                mobile:
+                  type: string
+                  example: "1234567890"
+                email:
+                  type: string
+                  example: "jason@example.com"
+                password:
+                  type: string
+                  example: "Pass@123"
+                confirmPassword:
+                  type: string
+                  example: "Pass@123"
+                userRole: 
+                  type: string
+                  example: "OWNER or TENANT" 
+              required:   
+                - name            
+                - email            
+                - password
+                - confirmPassword
+                - userRole
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+
+  /user/login:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: login      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string  
+                  example: "1234567890"                 
+                password:
+                  type: string    
+                  example: "Pass@123"                           
+              required:
+                - username
+                - password                
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+ 
+  /user/socialLogin:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: socialLogin     
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:              
+                name: 
+                  type: String
+                  example: "Jack" 
+                email:
+                  type: string  
+                  example: "xyz@gmail.com"         
+                userRole: 
+                  type: String 
+                  example: "SELLER or BUYER"                                                 
+              required:
+                - email
+                - name
+                - userRole
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+    
+  /user/logout:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: logout      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string                                      
+              required:
+                - token               
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+ 
+  /user/forgotPassword:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: forgotpassword      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string                                   
+              required:
+                - username                              
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /user/changePassword:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: changePassword      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                confirmPassword:
+                  type: string                                  
+              required:
+                - username  
+                - password
+                - confirmPassword                            
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+
+  /user/refreshToken:
+    post:
+      tags:
+      - "AUTHENDICATION"
+      description: ""
+      operationId: refreshToken      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                token:
+                  type: string 
+              required:
+                - userId
+                - token                                            
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /user/becameOwner:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "AUTHENDICATION"
+      description: ""
+      operationId: becameOwner      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string           
+              required:   
+                - userId  
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
+  /user/becameTenant:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "AUTHENDICATION"
+      description: ""
+      operationId: becameTenant      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string           
+              required:   
+                - userId  
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+
+  /user/getUserById: 
+    parameters:
+        - name: id
+          in: query
+          type: string
+          required: true 
+    get: 
+      security:
+        - bearerAuth: []     
+      tags:
+       - "USER"
+      operationId: getUserById   
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error   
+
+components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid 
