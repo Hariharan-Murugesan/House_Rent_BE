@@ -29,11 +29,12 @@ exports.createUser = async (reqBody) => {
         }
 
         reqBody.userStatus = reqBody.userRole === 'OWNER' ? 'UNAPPROVED' : 'APPROVED';
+        reqBody.isVerified = reqBody.userRole === 'OWNER' ? false : true;
         reqBody.password = hashedpassword;
         user = User(reqBody);
         await user.save();
 
-        const userDetails = await User.findOne({ _id: user._id }, { _id: 1, mobile: 1, email: 1, name: 1, userRole: 1, isVerified: 1 })
+        const userDetails = await User.findOne({ _id: user._id }, { mobile: 1, email: 1, name: 1, userRole: 1, userStatus: 1, isVerified: 1 })
         return {
             statusCode: 200,
             status: CONSTANT_MSG.STATUS.SUCCESS,

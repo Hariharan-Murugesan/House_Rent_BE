@@ -35,5 +35,4 @@ const socialUserSchema = mongoose.Schema(
     }
 );
 
-const Social_User = mongoose.model('Social_User', socialUserSchema, 'Social_User');
-module.exports = Social_User;
+module.exports = mongoose.model('Social_User', socialUserSchema, 'Social_User');

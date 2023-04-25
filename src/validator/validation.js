@@ -71,7 +71,21 @@ module.exports.changeEmail = joi.object({
 module.exports.addHouse = joi.object({
     userId: joiObjectId().required(),
     houseName: joi.string().required(),
-    price: joi.number().required(),
+    description: joi.string().allow(''),
+    image: joi.array().items(joi.string()).required(),
+    stayType: joi.string().valid('SHERED', 'PRIVATE').required(),
+    stayTime: joi.string().valid('DAY', 'NIGHT', 'FULLDAY').required(),
+    facility: joi.object({
+        guest: joi.number().min(1).required(),
+        bedroom: joi.number().min(1).required(),
+        bed: joi.number().required(),
+        bathroom: joi.number().min(1).required()
+    }).required(),
+    roomService: joi.array().items(joi.object({
+        categoryId: joiObjectId().required(),
+        subCategoryId: joi.array().required()
+    })),
+    price: joi.number().min(1).required(),
     space: joi.string().required(),
     address1: joi.string().min(3).required(),
     address2: joi.string().min(3).required(),
@@ -88,7 +102,21 @@ module.exports.updateHouse = joi.object({
     houseId: joiObjectId().required(),
     userId: joiObjectId().required(),
     houseName: joi.string().required(),
-    price: joi.number().required(),
+    description: joi.string().allow(''),
+    image: joi.array().items(joi.string()).required(),
+    stayType: joi.string().valid('SHERED', 'PRIVATE').required(),
+    stayTime: joi.string().valid('DAY', 'NIGHT', 'FULLDAY').required(),
+    facility: joi.object({
+        guest: joi.number().min(1).required(),
+        bedroom: joi.number().min(1).required(),
+        bed: joi.number().required(),
+        bathroom: joi.number().min(1).required()
+    }).required(),
+    roomService: joi.array().items(joi.object({
+        categoryId: joiObjectId().required(),
+        subCategoryId: joi.array().required()
+    })),
+    price: joi.number().min(1).required(),
     space: joi.string().required(),
     address1: joi.string().min(3).required(),
     address2: joi.string().min(3).required(),
@@ -113,4 +141,23 @@ module.exports.getAllHouse = joi.object({
 
 module.exports.getHouseById = joi.object({
     houseId: joiObjectId().required(),
+});
+
+module.exports.readS3File = joi.object({
+    key: joi.string().required(),
+});
+
+module.exports.approveByAdmin = joi.object({
+    type: joi.string().valid('OWNER', 'HOUSE').required(),
+    userId: joi.when('type', {
+        is: joi.string().valid('OWNER'),
+        then: joiObjectId().required(),
+        otherwise: joi.valid(null),
+    }),
+    houseId: joi.when('type', {
+        is: joi.string().valid('HOUSE'),
+        then: joiObjectId().required(),
+        otherwise: joi.valid(null),
+    }),
+    status: joi.string().valid('APPROVED', 'REJECTED').required(),
 });

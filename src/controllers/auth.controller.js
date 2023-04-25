@@ -22,13 +22,7 @@ exports.login = async (req, res) => {
         await signInSchema.validateAsync(req.body);
         let user = await authService.login(req.body);
         if (user.status != 'error') {
-            let token;
-            if (req.body.isMobileApp) {
-                token = await Authentication.getJwtTokenForMbl(user.data);
-            } else {
-                token = await Authentication.getJwtToken(user.data);
-            }
-            user.token = token;
+            user.token = await Authentication.getJwtToken(user.data);
         }
         return res.status(user.statusCode).send(user);
     } catch (error) {

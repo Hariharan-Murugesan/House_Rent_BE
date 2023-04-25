@@ -24,6 +24,8 @@ module.exports.CONSTANT_MSG = {
         USER_REMOVED: "User removed successfully",
         USER_NOT_FOUND: "User is not found",
         USER_UPDATED: "User updated successfully",
+        USER_APPROVED: "User approved successfully",
+        USER_REJECTED: "User rejected successfully",
         USER_INACTIVE_SUCCESSFULLY: 'User Inactivated successfully',
         USER_ACTIVATED_SUCCESSFULLY: 'User Activated successfully',
         USER_NOT_SELLER: 'User is not a Seller',
@@ -99,7 +101,9 @@ module.exports.CONSTANT_MSG = {
         HOUSE_DELETED_SUCCESSFULLY: "House deleted successfully",
         HOUSE_NOT_FOUND: "House not found",
         HOUSE_FETCH_SUCCESSFULLY: "House fetch successfully",
-        HOUSE_ALEADY_ADDED: "House already added"
+        HOUSE_ALEADY_ADDED: "House already added",
+        HOUSE_APPROVED: "House approved successfully",
+        HOUSE_REJECTED: "House rejected successfully"
     },
     OWNER: {
         OWNER_FETCH_SUCCESSFULLY: "Owner fetch successfully",

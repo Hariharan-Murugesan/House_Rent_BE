@@ -5,3 +5,5 @@ module.exports.House = require('./house.model');
 module.exports.Rating = require('./rating.model');
 module.exports.Social_User = require('./social_user.model');
 module.exports.Token = require('./token.model');
+module.exports.Category = require('./category.model');
+module.exports.SubCategory = require('./subCategory.model');

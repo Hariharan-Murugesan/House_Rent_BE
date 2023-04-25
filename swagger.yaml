@@ -289,7 +289,35 @@ paths:
           description: Bad Request Error
         "401":
           description: Unauthorized Error
-
+  
+  /singleUpload:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "FILE UPLOAD"
+      operationId: singleUpload      
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:                
+                file:
+                  type: string
+                  format: binary
+                  required: true   
+              required:
+                - file  
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
   /user/getUserById: 
     parameters:
         - name: id
@@ -356,6 +384,38 @@ paths:
                   type: string 
                 houseName:
                   type: string           
+                description:
+                  type: string           
+                image:
+                  type: array 
+                  items:
+                    type: string          
+                roomService:
+                  type: array
+                  items:
+                    type: object 
+                    properties:
+                      categoryId: 
+                        type: string           
+                      subCategoryId: 
+                        type: array 
+                          items:
+                            type: string           
+                facility:
+                  type: object
+                  properties:
+                    guest: 
+                      type: number           
+                    bedroom: 
+                      type: number           
+                    bed: 
+                      type: number           
+                    bathroom: 
+                      type: number           
+                stayType:
+                  type: string          
+                stayTime:
+                  type: string
                 price:
                   type: string 
                 space:
@@ -417,7 +477,39 @@ paths:
                 houseId:
                   type: string 
                 houseName:
+                  type: string   
+                description:
                   type: string           
+                image:
+                  type: array 
+                  items:
+                    type: string          
+                roomService:
+                  type: array
+                  items:
+                    type: object 
+                    properties:
+                      categoryId: 
+                        type: string           
+                      subCategoryId: 
+                        type: array 
+                          items:
+                            type: string             
+                facility:
+                  type: object
+                  properties:
+                    guest: 
+                      type: number           
+                    bedroom: 
+                      type: number           
+                    bed: 
+                      type: number           
+                    bathroom: 
+                      type: number           
+                stayType:
+                  type: string              
+                stayTime:
+                  type: string        
                 price:
                   type: string 
                 space:
@@ -529,6 +621,34 @@ paths:
         "401":
           description: Unauthorized Error   
 
+  /admin/approveByAdmin:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "ADMIN"
+      operationId: approveByAdmin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string 
+                houseId:
+                  type: string 
+                status:
+                  type: string
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
   /admin/getOwnerList:
     post:   
       security:

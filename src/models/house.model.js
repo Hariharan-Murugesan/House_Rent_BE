@@ -1,10 +1,49 @@
 const mongoose = require('mongoose');
 
+const serviceStructure = {
+    categoryId: { type: String },
+    subCategoryIds: { type: Array },
+}
+
 const houseSchema = new mongoose.Schema({
     houseName: {
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: Array,
+    },
+    stayTime: {
+        type: String,
+        required: true
+    },
+    stayType: {
+        type: String,
+        required: true
+    },
+    facility: {
+        guest: {
+            type: Number,
+            required: true
+        },
+        bedroom: {
+            type: Number,
+            required: true
+        },
+        bed: {
+            type: Number,
+            required: true
+        },
+        bathroom: {
+            type: Number,
+            required: true
+        },
+    },
+    roomService: [serviceStructure],
     price: {
         type: Number,
         required: true
@@ -49,12 +88,21 @@ const houseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    viewCount: {
+        type: Number,
+        default: 0
+    },
+    houseStatus: {
+        type: String,
+        default: 'UNAPPROVED'
+    },
     isDeleted: {
         type: Boolean,
+        default: false
     }
 },
     {
         timestamps: true,
     });
 
-module.exports = mongoose.model('House', houseSchema, 'House')
+module.exports = mongoose.model('House', houseSchema, 'House');

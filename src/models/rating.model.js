@@ -5,18 +5,30 @@ const ratingSchema = mongoose.Schema(
         tenantId: {
             type: String,
         },
-        typeId: {
+        houseId: {
             type: String,
         },
-        ratingType: {
-            type: String,
+        clean: {
+            type: Number,
+        },
+        accuracy: {
+            type: Number,
+        },
+        communication: {
+            type: Number,
+        },
+        Location: {
+            type: Number,
+        },
+        checkIn: {
+            type: Number,
+        },
+        value: {
+            type: Number,
         },
         review: {
             type: String,
-        },
-        rating: {
-            type: Number,
-        },
+        }, 
     },
     {
         timestamps: true,

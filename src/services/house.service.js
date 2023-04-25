@@ -47,7 +47,7 @@ exports.updateHouse = async (details) => {
                 message: CONSTANT_MSG.USER.USER_NOT_FOUND
             }
         }
-        const oldHouse = await House.findOne({ $and: [{ $ne: { _id: ObjectID(details.houseId) } }, { userId: details.userId }, { pincode: details.pincode }, { space: details.space }, { houseName: details.houseName }] })
+        const oldHouse = await House.findOne({ $and: [{ _id: { $ne: ObjectID(details.houseId) } }, { userId: details.userId }, { pincode: details.pincode }, { space: details.space }, { houseName: details.houseName }] })
         if (oldHouse) {
             return {
                 statusCode: 400,
@@ -132,7 +132,7 @@ exports.getAllHouse = async (reqQuery) => {
             { $unwind: { path: "$userDetails", preserveNullAndEmptyArrays: true } }, { $project: { updatedAt: 0, createdAt: 0, __v: 0 } }
         );
 
-        aggregatePipeline.push({ $sort: { likeCount: -1 } });
+        // aggregatePipeline.push({ $sort: { likeCount: -1 } });
         const houses = await House.aggregate(aggregatePipeline).skip(skip).limit(limit);
         const totalCount = await House.find({ isDeleted: false }).count();
         return {
