@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const pincodeSchema = mongoose.Schema(
     {
         pincode: {
-            type: Number,
+            type: String,
         },
-        stateName: {
+        state: {
             type: String,
         },
         district: {
@@ -14,10 +14,10 @@ const pincodeSchema = mongoose.Schema(
         country: {
             type: String,
         },
-        lattitude: {
+        latitude: {
             type: String,
         },
-        longtitude: {
+        longitude: {
             type: String,
         }
     },

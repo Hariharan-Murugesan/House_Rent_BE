@@ -1,3 +1,5 @@
+const { Category } = require("../models");
+
 module.exports.CONSTANT_MSG = {
 
     AUTH: {
@@ -53,13 +55,10 @@ module.exports.CONSTANT_MSG = {
         ADDRESS_LIST: "Address list fetched successfully",
         PINCODE_LIST: "Pincode lists fetched successfully",
         PINCODE_NOT_FOUND: "Pincode is not found",
-        PINCODE_NON_SERVICE: "We are working to make your pincode serviceable soon",
         INVALID_ADDRESS: 'Address is not valid'
     },
 
     EMAIL: {
-        BUSINESSMOBILENO_EXISTING: " Business mobile number already exist!",
-        BUSINESSEMAIL_EXISTING: "Business email already exist!",
         MOBILENO_EXISTING: "Mobile number already exist!",
         EMAIL_EXISTING: "Email already exist!",
         EMAIL_REQUIRED: "Email is required",
@@ -124,6 +123,24 @@ module.exports.CONSTANT_MSG = {
         SHOP_REMOVED_FROM_FAVORITES: "Shop successfully removed from favorites",
         SHOP_NOT_FOUND_IN_FAVORITE: "Shop not found in favorite",
         SHOP_FAVORITE_FETCHED: "Shop favorite fetched successfully",
-    }
-
+    },
+    CATEGORY: {
+        CATEGORY_ADDED_SUCCESS: 'Category added successfully',
+        CATEGORY_ALREADY_ADDED: 'Category already added',
+        NO_CATEGORY_FOUND: 'No Category found',
+        CATEGORY_UPDATED_SUCCESSFULLY: 'Category Updated successfully',
+        CATEGORY_FETCHED_SUCCESSFULLY: 'Category fetched successfully',
+        CATEGORY_ACTIVE_SUCCESSFULLY: 'Category Activated successfully',
+        CATEGORY_DEACTIVE_SUCCESSFULLY: 'Category Deactivated successfully',
+        PRODUCT_COUNT_FETCHED_BY_CATEGORY: 'Products count fetched by category'
+    },
+    SUBCATEGORY: {
+        SUBCATEGORY_ADDED_SUCCESS: 'Sub Category added successfully',
+        SUBCATEGORY_ALREADY_ADDED: 'Sub Category already added',
+        NO_SUBCATEGORY_FOUND: 'No Sub Category found',
+        SUBCATEGORY_UPDATED_SUCCESSFULLY: 'Sub Category Updated successfully',
+        SUBCATEGORY_FETCHED_SUCCESSFULLY: 'Sub Category fetched successfully',
+        SUBCATEGORY_ACTIVE_SUCCESSFULLY: 'Sub Category Activated successfully',
+        SUBCATEGORY_INACTIVE_SUCCESSFULLY: 'Sub Category Deactivated successfully',
+    },
 }

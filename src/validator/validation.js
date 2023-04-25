@@ -1,5 +1,5 @@
 const joi = require('joi');
-const joiObjectId = require('joi-objectid')(joi)
+const joiObjectId = require('joi-objectid')(joi);
 
 module.exports.signUpSchema = joi.object({
     name: joi.string().min(3).max(30).required(),
@@ -95,7 +95,10 @@ module.exports.addHouse = joi.object({
     pincode: joi.string().max(6).required(),
     state: joi.string().required(),
     latitude: joi.string().required(),
-    longitude: joi.string().required()
+    longitude: joi.string().required(),
+    texPercent: joi.number().allow(''),
+    hostLanguage: joi.array().items(joi.string()).required(),
+    propertyType: joi.string().valid('HOUSE', 'FLAT', 'GUEST HOUSE', 'HOTEL').required(),
 });
 
 module.exports.updateHouse = joi.object({
@@ -126,7 +129,10 @@ module.exports.updateHouse = joi.object({
     pincode: joi.string().max(6).required(),
     state: joi.string().required(),
     latitude: joi.string().required(),
-    longitude: joi.string().required()
+    longitude: joi.string().required(),
+    texPercent: joi.number().allow(''),
+    hostLanguage: joi.array().items(joi.string()).required(),
+    propertyType: joi.string().valid('HOUSE', 'FLAT', 'GUEST HOUSE', 'HOTEL').required(),
 });
 
 module.exports.deleteHouseById = joi.object({
@@ -160,4 +166,8 @@ module.exports.approveByAdmin = joi.object({
         otherwise: joi.valid(null),
     }),
     status: joi.string().valid('APPROVED', 'REJECTED').required(),
+});
+
+module.exports.getPincode = joi.object({
+    pincode: joi.string().min(6).required(),
 });

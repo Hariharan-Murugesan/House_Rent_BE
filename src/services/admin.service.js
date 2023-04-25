@@ -1,7 +1,40 @@
 
 const { CONSTANT_MSG } = require('../config/constant_messages');
-const { House, User } = require('../models')
+const { House, User, Category, Pincode } = require('../models')
 const ObjectID = require('mongodb').ObjectId;
+
+exports.getCategory = async (details) => {
+    try {
+        const category = await Category.aggregate([
+            { $match: { isDeleted: false } },
+            { $addFields: { categoryId: { $toObjectId: "$_id" } } },
+            {
+                $lookup: {
+                    from: "subCategory",
+                    localField: "categoryId",
+                    foreignField: 'categoryId',
+                    pipeline: [{ $match: { isDeleted: false } }, { $project: { _id: 1, name: 1, description: 1, icon: 1, isMain: 1 } }],
+                    as: 'subCategory'
+                }
+            },
+            {
+                $project: { _id: 1, name: 1, isMain: 1, subCategory: 1 }
+            }
+        ])
+        return {
+            statusCode: 200,
+            status: CONSTANT_MSG.STATUS.SUCCESS,
+            message: CONSTANT_MSG.CATEGORY.CATEGORY_FETCHED_SUCCESSFULLY,
+            data: category
+        }
+    } catch (error) {
+        return {
+            statusCode: 500,
+            status: CONSTANT_MSG.STATUS.ERROR,
+            message: error.message
+        };
+    }
+}
 
 exports.approveByAdmin = async (details) => {
     try {
@@ -117,3 +150,28 @@ exports.getTenantBookedList = async (details) => {
         };
     }
 }
+
+exports.getPincode = async (reqBody) => {
+    try {
+        const pincode = await Pincode.find({ pincode: reqBody.pincode })
+        if (pincode.length === 0) {
+            return {
+                statusCode: 400,
+                status: CONSTANT_MSG.STATUS.ERROR,
+                message: CONSTANT_MSG.ADDRESS.PINCODE_NOT_FOUND
+            };
+        }
+        return {
+            statusCode: 200,
+            status: CONSTANT_MSG.STATUS.SUCCESS,
+            message: CONSTANT_MSG.ADDRESS.PINCODE_LIST,
+            data: pincode
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            status: CONSTANT_MSG.STATUS.ERROR,
+            message: error.message,
+        };
+    }
+};

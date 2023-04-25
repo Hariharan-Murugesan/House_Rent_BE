@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const { CONSTANT_MSG } = require('../config/constant_messages');
 const ObjectID = require('mongodb').ObjectId;
 const jwt = require('jsonwebtoken');
-const crypto = require("crypto");
 require('dotenv').config()
 
 // Register User

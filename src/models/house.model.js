@@ -96,6 +96,19 @@ const houseSchema = new mongoose.Schema({
         type: String,
         default: 'UNAPPROVED'
     },
+    texPercent: {
+        type: Number,
+        default: 0
+    },
+    propertyType: {
+        type: String,
+        required: true
+    },
+    hostLanguage: {
+        type: Array,
+        required: true,
+        default: ['ENGLISH']
+    },
     isDeleted: {
         type: Boolean,
         default: false

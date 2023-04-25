@@ -31,11 +31,13 @@ router.get("/house/getHouseById", authentication.checkJwtToken, houseController.
 router.post("/house/getAllHouse", authentication.checkJwtToken, houseController.getAllHouse);
 
 // Admin
+router.use("/admin/getCategory", authentication.checkJwtToken, adminController.getCategory);
 router.use("/admin/approveByAdmin", authentication.checkJwtToken, adminController.approveByAdmin);
 router.use("/admin/getOwnerNameList", authentication.checkJwtToken, adminController.getOwnerNameList);
 router.use("/admin/getOwnerList", authentication.checkJwtToken, adminController.getOwnerList);
 router.use("/admin/getTenantList", authentication.checkJwtToken, adminController.getTenantList);
 router.use("/admin/getTenantBookedList", authentication.checkJwtToken, adminController.getTenantBookedList);
+router.post('/getPincodeDetails', authentication.checkJwtToken, adminController.getPincode);
 
 // S3
 router.post('/multipleUpload', multerMid.array('file'), multiFileUpload);

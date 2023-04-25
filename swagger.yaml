@@ -22,7 +22,6 @@ paths:
     post:      
       tags:
        - "AUTHENDICATION"
-      description: ""
       operationId: register      
       requestBody:
         required: true
@@ -67,7 +66,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: login      
       requestBody:
         required: true
@@ -97,7 +95,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: socialLogin     
       requestBody:
         required: true
@@ -131,7 +128,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: logout      
       requestBody:
         required: true
@@ -156,7 +152,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: forgotpassword      
       requestBody:
         required: true
@@ -181,7 +176,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: changePassword      
       requestBody:
         required: true
@@ -212,7 +206,6 @@ paths:
     post:
       tags:
       - "AUTHENDICATION"
-      description: ""
       operationId: refreshToken      
       requestBody:
         required: true
@@ -242,7 +235,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "AUTHENDICATION"
-      description: ""
       operationId: becameOwner      
       requestBody:
         required: true
@@ -269,7 +261,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "AUTHENDICATION"
-      description: ""
       operationId: becameTenant      
       requestBody:
         required: true
@@ -344,7 +335,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "AUTHENDICATION"
-      description: ""
       operationId: becameTenant      
       requestBody:
         required: true
@@ -371,7 +361,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "HOUSE"
-      description: ""
       operationId: addHouse      
       requestBody:
         required: true
@@ -435,10 +424,20 @@ paths:
                 latitude:
                   type: string 
                 longitude:
-                  type: string           
+                  type: string    
+                texPercent:
+                  type: number    
+                hostLanguage:
+                  type: array 
+                    items:
+                      type: string     
+                propertyType:
+                  type: string          
               required:   
                 - userId  
                 - houseName 
+                - stayTime
+                - stayType
                 - price 
                 - space  
                 - address1 
@@ -448,7 +447,8 @@ paths:
                 - country 
                 - pincode  
                 - latitude 
-                - longitude 
+                - longitude
+                - propertyType 
       responses:
         "200":
           description: Success
@@ -463,7 +463,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "HOUSE"
-      description: ""
       operationId: updateHouse      
       requestBody:
         required: true
@@ -529,10 +528,21 @@ paths:
                 latitude:
                   type: string 
                 longitude:
+                  type: string 
+                texPercent:
+                  type: number    
+                hostLanguage:
+                  type: array 
+                    items:
+                      type: string     
+                propertyType:
                   type: string           
               required:   
-                - userId  
+                - houseId 
+                - userId 
                 - houseName 
+                - stayTime
+                - stayType
                 - price 
                 - space  
                 - address1 
@@ -542,7 +552,8 @@ paths:
                 - country 
                 - pincode  
                 - latitude 
-                - longitude 
+                - longitude
+                - propertyType 
       responses:
         "200":
           description: Success
@@ -557,7 +568,6 @@ paths:
         - bearerAuth: []    
       tags:
        - "HOUSE"
-      description: ""
       operationId: getAllHouse      
       requestBody:
         required: true
@@ -649,6 +659,36 @@ paths:
         "401":
           description: Unauthorized Error
   
+  /admin/getCategory:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "ADMIN"
+      operationId: getCategory
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+
+  /admin/getOwnerNameList:
+    post:   
+      security:
+        - bearerAuth: []    
+      tags:
+       - "ADMIN"
+      operationId: getOwnerList
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+
   /admin/getOwnerList:
     post:   
       security:
@@ -663,6 +703,33 @@ paths:
           description: Bad Request Error
         "401":
           description: Unauthorized Error
+  
+  /getPincodeDetails:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+      - "ADMIN"
+      operationId: getPincodeDetails      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pincode:
+                  type: string                       
+              required:
+                - pincode                                     
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request Error
+        "401":
+          description: Unauthorized Error
+  
   
 components:
   responses:
